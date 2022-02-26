@@ -1,34 +1,19 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class Hit : MonoBehaviour
 {
-    [SerializeField] private Slider _health;
-    [SerializeField] private TMP_Text _text;
-
-    private IEnumerator _hit;
-
-    public void HitOut()
+    public float Damage { get; private set; }
+    
+    private void Awake()
     {
-        _hit = ToHit();
-
-        StartCoroutine(_hit);
+        Damage = 10;
     }
 
-    private IEnumerator ToHit()
+    public void ToHit(Player player)
     {
-        int damage = 10;
-        float targetHealth = _health.value - damage;
-        float maxDelta = Time.deltaTime * 20;
-
-        while (_health.value > targetHealth && _health.value > 0)
+        if (player.GetComponentInChildren<HealthBar>()._isCoroutineRunning == false)
         {
-            _health.value = Mathf.MoveTowards(_health.value, targetHealth, maxDelta);
-            _text.text = _health.value.ToString("F2");
-
-            yield return null;
+            player.TakeDamage(Damage);
         }
     }
 }

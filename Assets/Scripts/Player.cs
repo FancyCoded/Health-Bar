@@ -1,16 +1,33 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Slider _health;
-    [SerializeField] private TMP_Text _text;
+    public float HitPoints { get; private set; }
 
     private void Awake()
     {
-        _health.value = 100;
-        _text.text = _health.value.ToString();
+        HitPoints = 100.00f;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (HitPoints > 0)
+        {
+            HitPoints -= damage;
+        }
+    }
+
+    public void TakeHeal(float hitPoints)
+    {
+        if (HitPoints < 100)
+        {
+            HitPoints += hitPoints;
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log(HitPoints);
     }
 }
 

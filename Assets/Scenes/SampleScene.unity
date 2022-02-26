@@ -533,6 +533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 946142085}
   - component: {fileID: 946142086}
+  - component: {fileID: 946142087}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -623,6 +624,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &946142087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946142084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b0f2682515dac4cbd660cc1a250419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 946142086}
+  _text: {fileID: 1266344309}
 --- !u!1 &954864948
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,6 +650,7 @@ GameObject:
   - component: {fileID: 954864952}
   - component: {fileID: 954864951}
   - component: {fileID: 954864950}
+  - component: {fileID: 954864953}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -705,14 +721,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696807636}
-        m_MethodName: HealUp
+      - m_Target: {fileID: 946142087}
+        m_MethodName: OnHeal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1696807637}
+        m_MethodName: TakeHeal
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -753,6 +780,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954864948}
   m_CullTransparentMesh: 0
+--- !u!114 &954864953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954864948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88cb5528980cd24e851da212c6aaa63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 946142086}
+  _text: {fileID: 1266344309}
 --- !u!1 &1266344307
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,6 +974,7 @@ GameObject:
   - component: {fileID: 1482312425}
   - component: {fileID: 1482312424}
   - component: {fileID: 1482312423}
+  - component: {fileID: 1482312426}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -1003,14 +1045,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696807636}
-        m_MethodName: HitOut
+      - m_Target: {fileID: 946142087}
+        m_MethodName: OnHit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1696807637}
+        m_MethodName: TakeDamage
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1051,6 +1104,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482312421}
   m_CullTransparentMesh: 0
+--- !u!114 &1482312426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482312421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcefd3f11f3fcfa45bfa2e3178eda2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 946142086}
+  _text: {fileID: 1266344309}
 --- !u!1 &1516576753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,6 +1207,7 @@ GameObject:
   - component: {fileID: 1696807634}
   - component: {fileID: 1696807635}
   - component: {fileID: 1696807636}
+  - component: {fileID: 1696807637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1222,11 +1290,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1696807633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88cb5528980cd24e851da212c6aaa63, type: 3}
+  m_Script: {fileID: 11500000, guid: 974d118c6c61e9e45b4bfbcefcda5c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 946142086}
+  _health: {fileID: 946142086}
   _text: {fileID: 1266344309}
+--- !u!114 &1696807637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696807633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a16a6238216d945babed3a39b2466b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1700985015
 GameObject:
   m_ObjectHideFlags: 0
