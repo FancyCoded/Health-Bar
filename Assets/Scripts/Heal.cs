@@ -11,9 +11,6 @@ public class Heal : MonoBehaviour
 
     public void ToHeal(Player player)
     {
-        if(player.GetComponentInChildren<HealthBar>()._isCoroutineRunning == false)
-        {
-            player.TakeHeal(HealingHitPoints);
-        }
+        player.TakeHeal(HealingHitPoints);
     }
 }

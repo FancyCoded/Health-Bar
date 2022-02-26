@@ -11,9 +11,6 @@ public class Hit : MonoBehaviour
 
     public void ToHit(Player player)
     {
-        if (player.GetComponentInChildren<HealthBar>()._isCoroutineRunning == false)
-        {
-            player.TakeDamage(Damage);
-        }
+        player.TakeDamage(Damage);
     }
 }

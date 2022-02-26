@@ -11,9 +11,12 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (HitPoints > 0)
+        if (HitPoints >= damage)
         {
-            HitPoints -= damage;
+            if(gameObject.GetComponentInChildren<HealthBar>().IsCoroutineRunning == false)
+            {
+                HitPoints -= damage;
+            }
         }
     }
 
@@ -21,7 +24,10 @@ public class Player : MonoBehaviour
     {
         if (HitPoints < 100)
         {
-            HitPoints += hitPoints;
+            if (gameObject.GetComponentInChildren<HealthBar>().IsCoroutineRunning == false)
+            {
+                HitPoints += hitPoints;
+            }
         }
     }
 }

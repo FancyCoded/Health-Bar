@@ -12,8 +12,7 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator _hitOut;
     private IEnumerator _healUp;
-
-    public bool _isCoroutineRunning { get; private set; }
+    public bool IsCoroutineRunning { get; private set; }
 
     private void Awake()
     {
@@ -21,52 +20,34 @@ public class HealthBar : MonoBehaviour
         _text.text = _health.value.ToString();
     }
 
-    public void OnHit()
+    public void Hit()
     {
-        if(_isCoroutineRunning == false)
+        if(IsCoroutineRunning == false)
         {
-            _hitOut = TakeHit(_hit.Damage);
+            _hitOut = ChangeHealthBar(-_hit.Damage);
 
             StartCoroutine(_hitOut);
         }
     }
 
-    public void OnHeal()
+    public void Heal()
     {
-        if (_isCoroutineRunning == false)
+        if (IsCoroutineRunning == false)
         {
-            _healUp = TakeHeal(_heal.HealingHitPoints);
+            _healUp = ChangeHealthBar(_heal.HealingHitPoints);
 
             StartCoroutine(_healUp);
         }
     }
 
-    private IEnumerator TakeHit(float damage)
+    private IEnumerator ChangeHealthBar(float hitPoints)
     {
-        _isCoroutineRunning = true;
-        float targetHealth = _health.value - damage;
-        float deltaFactor = 10;
-        float maxDelta = Time.deltaTime * deltaFactor;
-
-        while (_health.value > targetHealth && _health.value > 0)
-        {
-            _health.value = Mathf.MoveTowards(_health.value, targetHealth, maxDelta);
-            _text.text = _health.value.ToString("F2");
-
-            yield return null;
-        }
-
-        _isCoroutineRunning = false;
-    }
-
-    private IEnumerator TakeHeal(float hitPoints)
-    {
-        _isCoroutineRunning = true;
+        IsCoroutineRunning = true;
         float targetHealth = _health.value + hitPoints;
         float deltaFactor = 10;
         float maxDelta = Time.deltaTime * deltaFactor;
 
-        while (_health.value < targetHealth && _health.value < 100)
+        while ((_health.value < targetHealth &&  _health.value < 100) || (_health.value > targetHealth && _health.value > 0))
         {
             _health.value = Mathf.MoveTowards(_health.value, targetHealth, maxDelta);
             _text.text = _health.value.ToString("F2");
@@ -74,6 +55,6 @@ public class HealthBar : MonoBehaviour
             yield return null;
         }
 
-        _isCoroutineRunning = false;
+        IsCoroutineRunning = false;
     }
 }
