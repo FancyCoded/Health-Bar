@@ -12,6 +12,7 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator _hitOut;
     private IEnumerator _healUp;
+
     public bool IsCoroutineRunning { get; private set; }
 
     private void Awake()
