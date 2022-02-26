@@ -24,10 +24,5 @@ public class Player : MonoBehaviour
             HitPoints += hitPoints;
         }
     }
-
-    private void Update()
-    {
-        Debug.Log(HitPoints);
-    }
 }
 
