@@ -1,33 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Slider _health;
+
     public float HitPoints { get; private set; }
 
     private void Awake()
     {
-        HitPoints = 100.00f;
+        HitPoints = _health.maxValue;
     }
 
     public void TakeDamage(float damage)
     {
         if (HitPoints >= damage)
         {
-            if(gameObject.GetComponentInChildren<HealthBar>().IsCoroutineRunning == false)
-            {
-                HitPoints -= damage;
-            }
+             HitPoints -= damage;
         }
     }
 
     public void TakeHeal(float hitPoints)
     {
-        if (HitPoints < 100)
+        if (HitPoints + hitPoints <= _health.maxValue)
         {
-            if (gameObject.GetComponentInChildren<HealthBar>().IsCoroutineRunning == false)
-            {
-                HitPoints += hitPoints;
-            }
+            HitPoints += hitPoints;
         }
     }
 }
