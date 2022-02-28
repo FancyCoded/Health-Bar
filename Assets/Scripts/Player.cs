@@ -3,28 +3,22 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Slider _health;
-
-    public float HitPoints { get; private set; }
-
-    private void Awake()
-    {
-        HitPoints = _health.maxValue;
-    }
+    [SerializeField] private Slider _healthBar;
+    [SerializeField] private Health health;
 
     public void TakeDamage(float damage)
     {
-        if (HitPoints >= damage)
+        if (health.HitPoints >= damage)
         {
-             HitPoints -= damage;
+            health.Reduce(damage);
         }
     }
 
     public void TakeHeal(float hitPoints)
     {
-        if (HitPoints + hitPoints <= _health.maxValue)
+        if(health.HitPoints + hitPoints <= health.GetMax())
         {
-            HitPoints += hitPoints;
+            health.Increase(hitPoints);
         }
     }
 }

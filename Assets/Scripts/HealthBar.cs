@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
         _text.text = _health.value.ToString();
     }
 
-    public void Hit(Player player)
+    public void Reduce(Player player)
     {
         if(IsCoroutineRunning == false)
         {
@@ -30,7 +30,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void Heal(Player player)
+    public void Increase(Player player)
     {
         if (IsCoroutineRunning == false)
         {
