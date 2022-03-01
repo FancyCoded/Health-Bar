@@ -18,9 +18,4 @@ public class Health : MonoBehaviour
     {
         HitPoints = hitPoints;
     }
-
-    public void Update()
-    {
-        Debug.Log(HitPoints);
-    }
 }
