@@ -1,21 +1,50 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private Slider _healthBar;
+    [SerializeField] private HealthBar _healthBar;
+
+    private IEnumerator _changeHitPoints;
 
     public float HitPoints { get; private set; }
     public float Max { get; private set; } 
 
     private void Awake()
     {
-        HitPoints = _healthBar.maxValue;
-        Max = _healthBar.maxValue;
+        Max = HitPoints = _healthBar.Max;
     }
 
-    public void Set(float hitPoints)
+    public void Reduce(float damage)
     {
-        HitPoints = hitPoints;
+        if (HitPoints >= damage)
+        {
+            if(_healthBar.IsCoroutineRunning == false)
+            {
+                _changeHitPoints = _healthBar.ChangeHitPoints(-damage);
+                HitPoints -= damage;
+
+                StartCoroutine(_changeHitPoints);
+            }
+        }
+    }
+
+    public void Increase(float hitPoints)
+    {
+        if (HitPoints + hitPoints <= Max)
+        {
+            if(_healthBar.IsCoroutineRunning == false)
+            {
+                _changeHitPoints = _healthBar.ChangeHitPoints(hitPoints);
+                HitPoints += hitPoints;
+
+                StartCoroutine(_changeHitPoints);
+            }
+        }
+    }
+
+    public void Update()
+    {
+        Debug.Log(HitPoints);
     }
 }
