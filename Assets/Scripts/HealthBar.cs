@@ -5,29 +5,29 @@ using System.Collections;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Slider _healthBar;
+    [SerializeField] private Slider _bar;
     [SerializeField] private TMP_Text _text;
 
-    public float Max { get; private set; } 
     public bool IsCoroutineRunning { get; private set; }
+    public float Max { get; private set; }
 
     private void Awake()
     {
-        Max = _healthBar.value = 100.00f;
-        _text.text = _healthBar.value.ToString();
+        Max = _bar.value = 100.00f;
+        _text.text = _bar.value.ToString();
     }
 
     public IEnumerator ChangeHitPoints(float hitPoints)
     {
         IsCoroutineRunning = true;
-        float targetHealth = _healthBar.value + hitPoints;
+        float targetHealth = _bar.value + hitPoints;
         float deltaFactor = 10;
         float maxDelta = Time.deltaTime * deltaFactor;
 
-        while (_healthBar.value != targetHealth && targetHealth >= 0 && targetHealth <= 100)
+        while (_bar.value != targetHealth && targetHealth >= 0 && targetHealth <= 100)
         {
-            _healthBar.value = Mathf.MoveTowards(_healthBar.value, targetHealth, maxDelta);
-            _text.text = _healthBar.value.ToString("F2");
+            _bar.value = Mathf.MoveTowards(_bar.value, targetHealth, maxDelta);
+            _text.text = _bar.value.ToString("F2");
 
             yield return null;
         }

@@ -588,7 +588,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 3.93
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -612,18 +612,7 @@ MonoBehaviour:
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &946142087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b0f2682515dac4cbd660cc1a250419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 946142086}
+  _healthBar: {fileID: 946142086}
   _text: {fileID: 1266344309}
 --- !u!1 &954864948
 GameObject:
@@ -720,14 +709,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 946142087}
-        m_MethodName: Increase
-        m_Mode: 2
+      - m_Target: {fileID: 1696807636}
+        m_MethodName: TakeHeal
+        m_Mode: 4
         m_Arguments:
-          m_ObjectArgument: {fileID: 1696807636}
-          m_ObjectArgumentAssemblyTypeName: Player, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1018,14 +1007,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 946142087}
-        m_MethodName: Reduce
-        m_Mode: 2
+      - m_Target: {fileID: 1696807636}
+        m_MethodName: TakeDamage
+        m_Mode: 4
         m_Arguments:
-          m_ObjectArgument: {fileID: 1696807636}
-          m_ObjectArgumentAssemblyTypeName: Player, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1241,8 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974d118c6c61e9e45b4bfbcefcda5c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 946142086}
-  health: {fileID: 1696807637}
+  _health: {fileID: 1696807637}
 --- !u!114 &1696807637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e203c277e256e4490e9c83f58585ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 946142086}
+  _healthBar: {fileID: 946142087}
 --- !u!1 &1700985015
 GameObject:
   m_ObjectHideFlags: 0
