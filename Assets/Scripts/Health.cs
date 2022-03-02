@@ -42,9 +42,4 @@ public class Health : MonoBehaviour
             }
         }
     }
-
-    public void Update()
-    {
-        Debug.Log(HitPoints);
-    }
 }
