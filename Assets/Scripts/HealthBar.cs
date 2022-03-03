@@ -19,7 +19,17 @@ public class HealthBar : MonoBehaviour
         _text.text = _bar.value.ToString();
     }
 
-    public void OnChanged(float hitPoints)
+    private void OnEnable()
+    {
+        _health.Changed += OnChanged;
+    }
+
+    private void OnDisable()
+    {
+        _health.Changed -= OnChanged;
+    }
+
+    private void OnChanged(float hitPoints)
     {
         if(_changeHitPoints != null)
         {
@@ -31,7 +41,7 @@ public class HealthBar : MonoBehaviour
         StartCoroutine(_changeHitPoints);
     }
 
-    public IEnumerator ChangeHitPoints(float targetHitPoints)
+    private IEnumerator ChangeHitPoints(float targetHitPoints)
     {
         float deltaFactor = 10;
         float maxDelta = Time.deltaTime * deltaFactor;
@@ -43,15 +53,5 @@ public class HealthBar : MonoBehaviour
 
             yield return null;
         }
-    }
-
-    private void OnEnable()
-    {
-        _health.Changed += OnChanged;
-    }
-
-    private void OnDisable()
-    {
-        _health.Changed -= OnChanged;
     }
 }
