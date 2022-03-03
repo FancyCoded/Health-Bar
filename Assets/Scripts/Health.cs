@@ -3,34 +3,32 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private HealthBar _healthBar;
     public event UnityAction<float> Changed;
      
     public float HitPoints { get; private set; }
     public float Max { get; private set; }
+    public float Min { get; private set; }
 
     private void Awake()
     {
-        Max = HitPoints = _healthBar.Max;
+        Max = HitPoints = 100;
+        Min = 0;
     }
 
     public void Reduce(float damage)
     {
-        if (HitPoints >= damage)
-        {
-            Changed.Invoke(-damage);
-
-            HitPoints -= damage;
-        }
+        HitPoints = Mathf.Clamp(HitPoints - damage, Min, Max);
+        Changed?.Invoke(HitPoints);
     }
 
     public void Increase(float hitPoints)
     {
-        if (HitPoints + hitPoints <= Max)
-        {
-            Changed.Invoke(hitPoints);
+        HitPoints = Mathf.Clamp(HitPoints + hitPoints, Min, Max);
+        Changed?.Invoke(HitPoints);
+    }
 
-            HitPoints += hitPoints;
-        }
+    public void Update()
+    {
+        Debug.Log(HitPoints);
     }
 }

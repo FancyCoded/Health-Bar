@@ -3,39 +3,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Slider _bar;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Health _health;
 
+    private Slider _bar;
     private IEnumerator _changeHitPoints;
 
-    public float Max { get; private set; }
-
-    private void Awake()
+    private void Start()
     {
-        Max = _bar.value = 100.00f;
+        _bar = GetComponent<Slider>();
+        _bar.maxValue = _bar.value = _health.Max;
         _text.text = _bar.value.ToString();
     }
 
     public void OnChanged(float hitPoints)
     {
+        if(_changeHitPoints != null)
+        {
+            StopCoroutine(_changeHitPoints);
+        }
+
         _changeHitPoints = ChangeHitPoints(hitPoints);
 
         StartCoroutine(_changeHitPoints);
     }
 
-    public IEnumerator ChangeHitPoints(float hitPoints)
+    public IEnumerator ChangeHitPoints(float targetHitPoints)
     {
-        float step = 0.1f;
-        float healthStepFactor = 0.01f;
+        float deltaFactor = 10;
+        float maxDelta = Time.deltaTime * deltaFactor;
 
-        for (float i = 0; i < Mathf.Abs(hitPoints); i += step)
+        while(_bar.value != targetHitPoints)
         {
-            _bar.value += hitPoints * healthStepFactor;
-
+            _bar.value = Mathf.MoveTowards(_bar.value, targetHitPoints, maxDelta);
             _text.text = _bar.value.ToString("F2");
+
             yield return null;
         }
     }
