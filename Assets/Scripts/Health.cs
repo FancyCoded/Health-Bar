@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private HealthBar _healthBar;
-
-    private IEnumerator _changeHitPoints;
-
+    public event UnityAction<float> Changed;
+     
     public float HitPoints { get; private set; }
-    public float Max { get; private set; } 
+    public float Max { get; private set; }
 
     private void Awake()
     {
@@ -19,13 +18,9 @@ public class Health : MonoBehaviour
     {
         if (HitPoints >= damage)
         {
-            if(_healthBar.IsCoroutineRunning == false)
-            {
-                _changeHitPoints = _healthBar.ChangeHitPoints(-damage);
-                HitPoints -= damage;
+            Changed.Invoke(-damage);
 
-                StartCoroutine(_changeHitPoints);
-            }
+            HitPoints -= damage;
         }
     }
 
@@ -33,13 +28,14 @@ public class Health : MonoBehaviour
     {
         if (HitPoints + hitPoints <= Max)
         {
-            if(_healthBar.IsCoroutineRunning == false)
-            {
-                _changeHitPoints = _healthBar.ChangeHitPoints(hitPoints);
-                HitPoints += hitPoints;
+            Changed.Invoke(hitPoints);
 
-                StartCoroutine(_changeHitPoints);
-            }
+            HitPoints += hitPoints;
         }
+    }
+
+    public void Update()
+    {
+        Debug.Log(HitPoints);
     }
 }

@@ -7,8 +7,10 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider _bar;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private Health _health;
 
-    public bool IsCoroutineRunning { get; private set; }
+    private IEnumerator _changeHitPoints;
+
     public float Max { get; private set; }
 
     private void Awake()
@@ -17,21 +19,34 @@ public class HealthBar : MonoBehaviour
         _text.text = _bar.value.ToString();
     }
 
+    public void OnChanged(float hitPoints)
+    {
+        _changeHitPoints = ChangeHitPoints(hitPoints);
+
+        StartCoroutine(_changeHitPoints);
+    }
+
     public IEnumerator ChangeHitPoints(float hitPoints)
     {
-        IsCoroutineRunning = true;
-        float targetHealth = _bar.value + hitPoints;
-        float deltaFactor = 10;
-        float maxDelta = Time.deltaTime * deltaFactor;
+        float step = 0.1f;
+        float healthStepFactor = 0.01f;
 
-        while (_bar.value != targetHealth && targetHealth >= 0 && targetHealth <= 100)
+        for (float i = 0; i < Mathf.Abs(hitPoints); i += step)
         {
-            _bar.value = Mathf.MoveTowards(_bar.value, targetHealth, maxDelta);
-            _text.text = _bar.value.ToString("F2");
+            _bar.value += hitPoints * healthStepFactor;
 
+            _text.text = _bar.value.ToString("F2");
             yield return null;
         }
+    }
 
-        IsCoroutineRunning = false;
+    private void OnEnable()
+    {
+        _health.Changed += OnChanged;
+    }
+
+    private void OnDisable()
+    {
+        _health.Changed -= OnChanged;
     }
 }
