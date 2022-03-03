@@ -12,16 +12,16 @@ public class HealthBar : MonoBehaviour
     private Slider _bar;
     private IEnumerator _changeHitPoints;
 
+    private void OnEnable()
+    {
+        _health.Changed += OnChanged;
+    }
+
     private void Start()
     {
         _bar = GetComponent<Slider>();
         _bar.maxValue = _bar.value = _health.Max;
         _text.text = _bar.value.ToString();
-    }
-
-    private void OnEnable()
-    {
-        _health.Changed += OnChanged;
     }
 
     private void OnDisable()
