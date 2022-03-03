@@ -26,9 +26,4 @@ public class Health : MonoBehaviour
         HitPoints = Mathf.Clamp(HitPoints + hitPoints, Min, Max);
         Changed?.Invoke(HitPoints);
     }
-
-    public void Update()
-    {
-        Debug.Log(HitPoints);
-    }
 }
